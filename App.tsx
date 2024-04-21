@@ -1,117 +1,109 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { Component } from 'react';
+import { View, TextInput, Button, KeyboardAvoidingView, StyleSheet } from 'react-native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+class App extends Component {
+  state = {
+    username: '',
+    password: '',
+    phone:'',
+    email:'',
+    address:''
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+  handleUsernameChange = (username) => {
+    this.setState({ username });
+  };
+
+  handlePasswordChange = (password) => {
+    this.setState({ password });
+  };
+
+  handleEmailChange = (email) => {
+    this.setState({ email });
+  };
+
+  handleAddressChange = (address) => {
+    this.setState({ address });
+  };
+
+  handlePhoneChange = (phone) => {
+    this.setState({ phone });
+  };
+
+  handleLogin = () => {
+    const { username, password,email,phone,address } = this.state;
+    // Add your login logic here
+    console.log('Username:', username);
+    console.log('Password:', password);
+    console.log('Email:', email);
+    console.log('Phone:', phone);
+    console.log('Address:', address);
+  };
+
+  render() {
+    return (
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            onChangeText={this.handleUsernameChange}
+            value={this.state.username}
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            onChangeText={this.handleEmailChange}
+            value={this.state.email}
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone"
+            onChangeText={this.handlePhoneChange}
+            value={this.state.phone}
+            autoCapitalize="none"
+          />
+           <TextInput
+            style={styles.input}
+            placeholder="Address"
+            onChangeText={this.handleAddressChange}
+            value={this.state.address}
+            returnKeyType='done'
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            onChangeText={this.handlePasswordChange}
+            value={this.state.password}
+            returnKeyType='done'
+            secureTextEntry
+          />
+          <Button title="Login" onPress={this.handleLogin} />
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  inputContainer: {
+    width: '80%',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
   },
 });
 
